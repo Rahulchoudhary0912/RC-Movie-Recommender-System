@@ -1,4 +1,5 @@
-flask==2.3.2
-
-scikit-learn==1.3.2
-gunicorn==21.2.0
+streamlit
+pandas
+requests
+urllib3
+datetime
