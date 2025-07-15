@@ -37,7 +37,7 @@ Here are some screenshots and a demo video of the Movie Recommender System in ac
 ![Screenshot 2](demo/Movie%20Recommender%20System%20-%20Brave%2015-07-2025%2021_41_11.png)
 ![Screenshot 3](demo/Movie%20Recommender%20System%20-%20Brave%2015-07-2025%2021_41_55.png)
 
-https://github.com/Rahulchoudhary0912/RC-Movie-Recommender-System/blob/main/demo/Movie%20Recommender%20System%20-%20Brave%202025-07-15%2021-39-45.mp4
+[Download Demo Video](demo/Movie%20Recommender%20System%20-%20Brave%202025-07-15%2021-39-45.mp4)
 
 ## 🛠️ Usage
 - Start the backend: `
