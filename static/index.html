@@ -88,7 +88,8 @@
             color: var(--text-primary);
         }
 
-        select {
+        select,
+        input[type="text"] {
             width: 100%;
             padding: 0.8rem;
             border: 2px solid rgba(255,255,255,0.1);
@@ -99,7 +100,8 @@
             color: var(--text-primary);
         }
 
-        select:focus {
+        select:focus,
+        input[type="text"]:focus {
             border-color: var(--secondary-color);
             outline: none;
             box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.2);
@@ -615,8 +617,9 @@
                 </div>
 
                 <div class="search-option" id="movieSelect">
-                    <label>Select Movie:</label>
-                    <select id="movieList"></select>
+                    <label>Search Movie:</label>
+                    <input type="text" id="movieSearch" list="movieSuggestions" placeholder="Type to search...">
+                    <datalist id="movieSuggestions"></datalist>
                 </div>
 
                 <div class="search-option" id="genreSelect" style="display: none;">
@@ -651,15 +654,16 @@
         else greeting.textContent = "Good Evening! 🌙";
 
         // Load movies list
+        const movieTitles = [];
         fetch('/api/movies')
             .then(response => response.json())
             .then(movies => {
-                const select = document.getElementById('movieList');
+                const datalist = document.getElementById('movieSuggestions');
                 movies.forEach(movie => {
+                    movieTitles.push(movie.title);
                     const option = document.createElement('option');
                     option.value = movie.title;
-                    option.textContent = movie.title;
-                    select.appendChild(option);
+                    datalist.appendChild(option);
                 });
             });
 
@@ -860,11 +864,21 @@
             button.innerHTML = '<span class="loading-spinner"></span>Loading...';
             
             if (searchType === 'movie') {
-                const movie = document.getElementById('movieList').value;
+                const movieInput = document.getElementById('movieSearch');
+                const movie = movieInput.value.trim();
+                if (!movie) {
+                    alert('Please type a movie title first.');
+                    button.disabled = false;
+                    button.innerHTML = originalButtonText;
+                    return;
+                }
+
+                // Snap to the closest known title for consistency if needed
+                const normalizedMovie = movieTitles.find(title => title.toLowerCase() === movie.toLowerCase()) || movie;
                 // Adjust count to account for the selected movie
                 const adjustedCount = Math.max(1, count - 1);
-                url += `?movie=${encodeURIComponent(movie)}&count=${adjustedCount}`;
-                selectedMovie = movie;
+                url += `?movie=${encodeURIComponent(normalizedMovie)}&count=${adjustedCount}`;
+                selectedMovie = normalizedMovie;
             } else {
                 const genre = document.getElementById('genreList').value;
                 url = `/api/genre?genre=${encodeURIComponent(genre)}&count=${count}`;
