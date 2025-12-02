@@ -1,5 +1,7 @@
 # 🎬 Movie Recommender System
 
+# Hosted On Vercel-   https://rc-movies-recommendation.vercel.app/
+
 A smart, responsive movie recommendation app powered by machine learning and the TMDB API. Get suggestions based on movie titles or genres — complete with posters, trailers, and a modern UI.
 
 ## 🚀 Features
